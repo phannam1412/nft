@@ -1,7 +1,21 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.5.16;
+
 contract Heroes {
 
-    function attack(uint heroType, uint dragonType) public returns (bool) {
+    mapping(address => uint256) private _balances;
+
+    // xem số dư của tài khoản này
+    function balanceOf(address account) public view returns (uint256) {
+        return _balances[account];
+    }
+
+    // đút thêm tiền cho tài khoản
+    function mint(address account, uint256 amount) public {
+        _balances[account] += amount;
+    }
+
+    // đánh nhau với rồng 
+    function attack(uint heroType, uint dragonType) public {
 
         require(heroType >= 0 && heroType <= 3); // hỗ trợ 4 loại siêu anh hùng: healer, knight, hammer, mage
         require(dragonType >= 0 && dragonType <= 4); // hỗ trợ 4 loại rồng, tỷ lệ thắng lần lượt là: 20%, 40%, 60%, 80%
@@ -10,30 +24,26 @@ contract Heroes {
 
         // trả về kết quả tuỳ theo tỷ lệ thắng
         if (dragonType == 0 && rand <= 20) {
-            msg.sender.transfer(12345); // trả tiền cho người gởi
-            return true;
+            _balances[msg.sender] += 80;
         }
-        if (dragonType == 1 && rand <= 40) {
-            msg.sender.transfer(12345);
-            return true;
+        else if (dragonType == 1 && rand <= 40) {
+            _balances[msg.sender] += 60;
         }
-        if (dragonType == 2 && rand <= 60) {
-            msg.sender.transfer(12345);
-            return true;
+        else if (dragonType == 2 && rand <= 60) {
+            _balances[msg.sender] += 40;
         }
-        if (dragonType == 3 && rand <= 80) {
-            msg.sender.transfer(0.00123);
-            return true;
+        else if (dragonType == 3 && rand <= 80) {
+            _balances[msg.sender] += 20;
+        } else {
+            _balances[msg.sender] -= 5;
         }
-        msg.sender.transfer(0.00001);
-        return false;
     }
 
-    function depend(uint heroType, uint dragonType) public returns (bool) {
-        return attack(heroType, dragonType);
+    function depend(uint heroType, uint dragonType) public {
+        attack(heroType, dragonType);
     }
 
-    function special(uint heroType, uint dragonType) public returns (bool) {
-        return attack(heroType, dragonType);
+    function special(uint heroType, uint dragonType) public  {
+        attack(heroType, dragonType);
     }
 }
