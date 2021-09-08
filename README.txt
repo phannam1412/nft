@@ -2,6 +2,15 @@ Heroes and Dragon
 
 figma: https://www.figma.com/file/Zg5FdgLjbvhvqubDU4a5kc/Heroes-vs-Dragon-Card-Game-Community?node-id=147%3A11
 
+QUICKSTART:
+
+```
+npm install
+npm run dev
+```
+
+
+
 CÁCH CHƠI:
 
     - người dùng chọn 1 trong 4 loại quân: healer, knight, hammer, mage

@@ -10,18 +10,22 @@ contract Heroes {
 
         // trả về kết quả tuỳ theo tỷ lệ thắng
         if (dragonType == 0 && rand <= 20) {
+            msg.sender.transfer(12345); // trả tiền cho người gởi
             return true;
         }
         if (dragonType == 1 && rand <= 40) {
+            msg.sender.transfer(12345);
             return true;
         }
         if (dragonType == 2 && rand <= 60) {
+            msg.sender.transfer(12345);
             return true;
         }
         if (dragonType == 3 && rand <= 80) {
+            msg.sender.transfer(0.00123);
             return true;
         }
-
+        msg.sender.transfer(0.00001);
         return false;
     }
 
