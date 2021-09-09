@@ -42,6 +42,7 @@ App = {
         $(document).on('click', '.btn-attack', App.handleAttack);
         $(document).on('click', '.btn-depend', App.handleDepend);
         $(document).on('click', '.btn-special', App.handleSpecial);
+        $(document).on('click', '.btn-view', App.handleView);
     },
 
     // hàm tấn công rồng, call smart contract ở đây
@@ -57,8 +58,29 @@ App = {
                 heroesInstance = instance;
                 return heroesInstance.attack(App.selectedHero, App.selectedDragon, {from: account});
             }).then(function (result) {
-                alert(result);
-                console.log(result);
+                if(result.logs[0].args.result) {
+                    alert("bạn đã thắng, số tiền kiếm được thêm là: " + result.logs[0].args.reward);
+                } else {
+                    alert("bạn đã thua");
+                }
+            }).catch(function (err) {
+                alert(err.message);
+            });
+        });
+    },
+
+    // hàm view số tiền trong tài khoản
+    handleView: function (event) {
+        event.preventDefault();
+        web3.eth.getAccounts(function (error, accounts) {
+            if (error) {
+                console.log(error);
+            }
+            var account = accounts[0];
+            App.contracts.Heroes.deployed().then(function (instance) {
+                return instance.balanceOf({from: account});
+            }).then(function (result) {
+                alert("số dư hiện có của bạn: " + result);
             }).catch(function (err) {
                 alert(err.message);
             });
