@@ -58,8 +58,11 @@ App = {
                 heroesInstance = instance;
                 return heroesInstance.attack(App.selectedHero, App.selectedDragon, {from: account});
             }).then(function (result) {
-                alert(result);
-                console.log(result);
+                if(result.logs[0].args.result) {
+                    alert("bạn đã thắng, số tiền kiếm được thêm là: " + result.logs[0].args.reward);
+                } else {
+                    alert("bạn đã thua");
+                }
             }).catch(function (err) {
                 alert(err.message);
             });
@@ -69,17 +72,15 @@ App = {
     // hàm view số tiền trong tài khoản
     handleView: function (event) {
         event.preventDefault();
-        var heroesInstance;
         web3.eth.getAccounts(function (error, accounts) {
             if (error) {
                 console.log(error);
             }
             var account = accounts[0];
             App.contracts.Heroes.deployed().then(function (instance) {
-                return instance.balanceOf();
+                return instance.balanceOf({from: account});
             }).then(function (result) {
-                alert(result);
-                console.log(result);
+                alert("số dư hiện có của bạn: " + result);
             }).catch(function (err) {
                 alert(err.message);
             });
