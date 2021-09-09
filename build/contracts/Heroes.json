@@ -128,7 +128,7 @@
   "sourceMap": "26:1958:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:1958:0;;;;;;;",
   "deployedSourceMap": "26:1958:0:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;26:1958:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;613:99;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;613:99:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;468:96;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1774:100;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1774:100:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;1880:102;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1880:102:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;750:1018;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;750:1018:0;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;613:99;699:6;677:9;:18;687:7;677:18;;;;;;;;;;;;;;;;:28;;;;;;;;;;;613:99;;:::o;468:96::-;510:7;536:9;:21;546:10;536:21;;;;;;;;;;;;;;;;529:28;;468:96;:::o;1774:100::-;1839:28;1846:8;1856:10;1839:6;:28::i;:::-;1774:100;;:::o;1880:102::-;1947:28;1954:8;1964:10;1947:6;:28::i;:::-;1880:102;;:::o;750:1018::-;836:1;824:8;:13;;:30;;;;;853:1;841:8;:13;;824:30;816:39;;;;;;956:1;942:10;:15;;:34;;;;;975:1;961:10;:15;;942:34;934:43;;;;;;1075:9;1098:3;1087:8;:6;:8::i;:::-;:14;;;;;;1075:26;;1112:11;1142:4;1133:13;;1156:11;1258:1;1244:10;:15;:29;;;;;1271:2;1263:4;:10;;1244:29;1240:425;;;1349:2;1339:12;;;;1240:425;;;1394:1;1380:10;:15;:29;;;;;1407:2;1399:4;:10;;1380:29;1376:289;;;1435:2;1425:12;;;;1376:289;;;1480:1;1466:10;:15;:29;;;;;1493:2;1485:4;:10;;1466:29;1462:203;;;1521:2;1511:12;;;;1462:203;;;1566:1;1552:10;:15;:29;;;;;1579:2;1571:4;:10;;1552:29;1548:117;;;1607:2;1597:12;;;;1548:117;;;1649:5;1640:14;;1548:117;1462:203;1376:289;1240:425;1699:6;1674:9;:21;1684:10;1674:21;;;;;;;;;;;;;;;;:31;;;;;;;;;;;1734:10;1721:40;;;1746:6;1754;1721:40;;;;;;;;;;;;;;;;;;;;;;;;;;;;750:1018;;;;;:::o;294:124::-;333:4;387:16;405:3;370:39;;;;;;;;;;;;;;;;;;;;;49:4:-1;39:7;30;26:21;22:32;13:7;6:49;370:39:0;;;360:50;;;;;;355:56;;348:63;;294:124;:::o",
   "source": "pragma solidity ^0.5.16;\n\ncontract Heroes {\n\n    mapping(address => uint256) private _balances;\n\n    event AttackResult(address indexed from, bool result, uint reward);\n\n    // @reff https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf\n    function random() private view returns(uint){\n        return uint(keccak256(abi.encodePacked(block.difficulty, now)));\n    }\n\n    // xem số dư của tài khoản này\n    function balanceOf() public view returns (uint256) {\n        return _balances[msg.sender];\n    }\n\n    // đút thêm tiền cho tài khoản\n    function mint(address account, uint256 amount) public {\n        _balances[account] += amount;\n    }\n\n    // đánh nhau với rồng\n    function attack(uint heroType, uint dragonType) public {\n\n        require(heroType >= 0 && heroType <= 3); // hỗ trợ 4 loại siêu anh hùng: healer, knight, hammer, mage\n        require(dragonType >= 0 && dragonType <= 4); // hỗ trợ 4 loại rồng, tỷ lệ thắng lần lượt là: 20%, 40%, 60%, 80%\n\n        uint rand = random() % 100;\n\n        bool result;\n        result = true;\n        uint reward;\n        // trả về kết quả tuỳ theo tỷ lệ thắng\n        if (dragonType == 0 && rand <= 50) { // đáng lẽ là 20% nhưng cho 50% để test\n             reward += 50;\n        }\n        else if (dragonType == 1 && rand <= 40) {\n            reward += 60;\n        }\n        else if (dragonType == 2 && rand <= 60) {\n            reward += 40;\n        }\n        else if (dragonType == 3 && rand <= 80) {\n            reward += 20;\n        } else {\n            result = false;\n        }\n        _balances[msg.sender] += reward;\n\n        emit AttackResult(msg.sender, result, reward);\n    }\n\n    function depend(uint heroType, uint dragonType) public {\n        attack(heroType, dragonType);\n    }\n\n    function special(uint heroType, uint dragonType) public  {\n        attack(heroType, dragonType);\n    }\n}",
-  "sourcePath": "/Users/namphan/nft/contracts/Heroes.sol",
+  "sourcePath": "/home/namph12/nft/contracts/Heroes.sol",
   "ast": {
     "absolutePath": "project:/contracts/Heroes.sol",
     "exportedSymbols": {
@@ -5623,10 +5623,16 @@
       "links": {},
       "address": "0xF86F10a72f8B78F52B6194386416B3a5d73F20E1",
       "transactionHash": "0xfea2e8fd2d66a3ad0801b8a8e41b9ceb05c5a9efdb2a0fa8f39bf644d9ee35b6"
+    },
+    "1631178929179": {
+      "events": {},
+      "links": {},
+      "address": "0x22f47A51FB4b4d331dAA851889813fBe2656D23C",
+      "transactionHash": "0x39e335e73469d1b2c67a30122454234de1075d7a6492367dc4e18c21b767eca1"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-09-09T08:51:53.992Z",
+  "updatedAt": "2021-09-09T09:30:25.658Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

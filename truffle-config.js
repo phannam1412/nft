@@ -30,7 +30,7 @@ module.exports = {
     hireizi: {
       host: "hireizi.com",
       port: 8545,
-      network_id: "1631177111297",
+      network_id: "1631178929179",
     },
 
     develop: {

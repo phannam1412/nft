@@ -53,7 +53,7 @@
   "sourceMap": "66:352:1:-;;;113:10;90:33;;;;;;;;;;;;;;;;;;;;66:352;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:352:1;;;;;;;",
   "deployedSourceMap": "66:352:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:352:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;127:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;90:33;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;313:103;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;313:103:1;;;;;;;;;;;;;;;;;:::i;:::-;;127:36;;;;:::o;90:33::-;;;;;;;;;;;;;:::o;313:103::-;225:5;;;;;;;;;;;211:19;;:10;:19;;;196:101;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;402:9;375:24;:36;;;;313:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.8.0;\n\ncontract Migrations {\n  address public owner = msg.sender;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    require(\n      msg.sender == owner,\n      \"This function is restricted to the contract's owner\"\n    );\n    _;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "/Users/namphan/nft/contracts/Migrations.sol",
+  "sourcePath": "/home/namph12/nft/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -923,10 +923,16 @@
       "links": {},
       "address": "0xD57Cea844e47a03977aFA6a9e8d0CA01E1bCb460",
       "transactionHash": "0xea52233037f1eb72486d270b98412fcf665bdf7b381ec76972718408d7c3d973"
+    },
+    "1631178929179": {
+      "events": {},
+      "links": {},
+      "address": "0x9196dcf62aEeC360035aA74EC9098C7e1cE587Bb",
+      "transactionHash": "0x9f0a3b2798a45a141d185a24017eff55aaa5f1fe8a6fed2c26add907df4d3ff4"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-09-09T08:51:54.003Z",
+  "updatedAt": "2021-09-09T09:30:25.667Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}
