@@ -4,9 +4,14 @@ contract Heroes {
 
     mapping(address => uint256) private _balances;
 
+    // @reff https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf
+    function random() private view returns(uint){
+        return uint(keccak256(abi.encodePacked(block.difficulty, now)));
+    }
+
     // xem số dư của tài khoản này
-    function balanceOf(address account) public view returns (uint256) {
-        return _balances[account];
+    function balanceOf() public view returns (uint256) {
+        return _balances[msg.sender];
     }
 
     // đút thêm tiền cho tài khoản
@@ -14,16 +19,16 @@ contract Heroes {
         _balances[account] += amount;
     }
 
-    // đánh nhau với rồng 
+    // đánh nhau với rồng
     function attack(uint heroType, uint dragonType) public {
 
         require(heroType >= 0 && heroType <= 3); // hỗ trợ 4 loại siêu anh hùng: healer, knight, hammer, mage
         require(dragonType >= 0 && dragonType <= 4); // hỗ trợ 4 loại rồng, tỷ lệ thắng lần lượt là: 20%, 40%, 60%, 80%
 
-        uint rand = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % 100;
+        uint rand = random();
 
         // trả về kết quả tuỳ theo tỷ lệ thắng
-        if (dragonType == 0 && rand <= 20) {
+        if (dragonType == 0 && rand <= 50) { // đáng lẽ là 20% nhưng cho 50% để test
             _balances[msg.sender] += 80;
         }
         else if (dragonType == 1 && rand <= 40) {
