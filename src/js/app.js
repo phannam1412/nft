@@ -58,11 +58,16 @@ App = {
                 heroesInstance = instance;
                 return heroesInstance.attack(App.selectedHero, App.selectedDragon, {from: account});
             }).then(function (result) {
-                if(result.logs[0].args.result) {
-                    alert("bạn đã thắng, số tiền kiếm được thêm là: " + result.logs[0].args.reward);
-                } else {
+                console.log(result);
+                result.logs.forEach(function(item){
+                    if(item.event != 'AttackResult')
+                        return;
+                    if(item.args.result) {
+                        alert("bạn đã thắng, số tiền kiếm được thêm là: " + item.args.reward);
+                        return;
+                    }
                     alert("bạn đã thua");
-                }
+                })
             }).catch(function (err) {
                 alert(err.message);
             });
@@ -78,7 +83,7 @@ App = {
             }
             var account = accounts[0];
             App.contracts.Heroes.deployed().then(function (instance) {
-                return instance.balanceOf({from: account});
+                return instance.balanceOf(account,{from: account});
             }).then(function (result) {
                 alert("số dư hiện có của bạn: " + result);
             }).catch(function (err) {

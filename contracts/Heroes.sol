@@ -12,8 +12,8 @@ contract Heroes is ERC20 {
     }
 
     // @ref https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf
-    function random() private view returns(uint){
-        return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
+    function random() internal view returns(uint){
+        return uint(blockhash(block.number - 1));
     }
 
     // đánh nhau với rồng
