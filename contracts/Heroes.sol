@@ -1,24 +1,19 @@
-pragma solidity ^0.5.16;
+pragma solidity ^0.8.0;
 
-contract Heroes {
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-    mapping(address => uint256) private _balances;
+// @ref https://forum.openzeppelin.com/t/deploy-contracts-to-a-public-network/1653
+contract Heroes is ERC20 {
 
     event AttackResult(address indexed from, bool result, uint reward);
 
-    // @reff https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf
+    constructor(uint256 initialSupply) ERC20("Nam", "NAM") {
+        _mint(msg.sender, initialSupply);
+    }
+
+    // @ref https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf
     function random() private view returns(uint){
-        return uint(keccak256(abi.encodePacked(block.difficulty, now)));
-    }
-
-    // xem số dư của tài khoản này
-    function balanceOf() public view returns (uint256) {
-        return _balances[msg.sender];
-    }
-
-    // đút thêm tiền cho tài khoản
-    function mint(address account, uint256 amount) public {
-        _balances[account] += amount;
+        return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
     }
 
     // đánh nhau với rồng
@@ -47,8 +42,9 @@ contract Heroes {
         } else {
             result = false;
         }
-        _balances[msg.sender] += reward;
-
+        if(reward > 0) {
+            _mint(msg.sender, reward);
+        }
         emit AttackResult(msg.sender, result, reward);
     }
 
