@@ -14,7 +14,7 @@ npm run dev
 Fresh build for smart contract
 
 ```
-rm -rf build && truffle compile && truffle migrate
+rm -rf build && truffle compile && truffle migrate --network hireizi
 ```
 
 # CÁCH CHƠI

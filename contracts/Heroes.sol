@@ -8,7 +8,12 @@ contract Heroes is ERC20 {
     event AttackResult(address indexed from, bool result, uint reward);
 
     constructor(uint256 initialSupply) ERC20("Nam", "NAM") {
-        _mint(msg.sender, initialSupply);
+        _mint(msg.sender, 1000000);
+    }
+
+    // tạm thời để test nên decimals = 0
+    function decimals() public view virtual override returns (uint8) {
+        return 0;
     }
 
     // @ref https://betterprogramming.pub/how-to-generate-truly-random-numbers-in-solidity-and-blockchain-9ced6472dbdf
